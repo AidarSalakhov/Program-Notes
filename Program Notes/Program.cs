@@ -20,13 +20,7 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
-        static void PrintNotes(string[] notes)
-        {
-            for (int i = 0; i < notes.Length; i++)
-            {
-                Console.WriteLine(i + ". " + notes[i]);
-            }
-        }
+      
 
         static void Menu(ConsoleKey key, string[] notes)
         {
@@ -34,6 +28,7 @@ namespace Program_Notes
             {
                 case ConsoleKey.A:
                     PrintNotes(notes);
+                    break;
 
                 case ConsoleKey.Q:
                     break;
@@ -43,20 +38,26 @@ namespace Program_Notes
             }
         }
 
+        static void PrintNotes(string[] notes)
+        {
+            for (int i = 0; i < notes.Length; i++)
+            {
+                Console.WriteLine(i + ". " + notes[i]);
+            }
+        }
+
 
         static void Main(string[] args)
         {
-            while (true)
-            {
-                string[] notes = { "Пожрать", "Поспасть", "Посрать", "Посмотреть", "Поиграть", "Попинать", "Погулять", "Поугарать", "Попрактиковаться", "Поинтересоваться" };
+            string[] notes = { "Пожрать", "Поспасть", "Посрать", "Посмотреть", "Поиграть", "Попинать", "Погулять", "Поугарать", "Попрактиковаться", "Поинтересоваться" };
 
-                Console.WriteLine("Выберите действие");
-                Console.WriteLine("Нажмите A - Посмотреть все заметки");
-                Console.WriteLine("Нажмите Q - Завершить работу программы");
-                
-                Menu(key);
+            Console.WriteLine("Выберите действие");
+            Console.WriteLine("Нажмите A - Посмотреть все заметки");
+            Console.WriteLine("Нажмите Q - Завершить работу программы");
 
-            }
+            ConsoleKey key = Console.ReadKey(true).Key;
+
+            Menu(key, notes);
         }
     }
 }
