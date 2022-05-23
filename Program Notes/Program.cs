@@ -28,6 +28,20 @@ namespace Program_Notes
             }
         }
 
+        static void Menu(ConsoleKey key, string[] notes)
+        {
+            switch (key)
+            {
+                case ConsoleKey.A:
+                    PrintNotes(notes);
+
+                case ConsoleKey.Q:
+                    break;
+
+                default:
+                    break;
+            }
+        }
 
 
         static void Main(string[] args)
@@ -36,30 +50,11 @@ namespace Program_Notes
             {
                 string[] notes = { "Пожрать", "Поспасть", "Посрать", "Посмотреть", "Поиграть", "Попинать", "Погулять", "Поугарать", "Попрактиковаться", "Поинтересоваться" };
 
-
-
-
-
-
-
                 Console.WriteLine("Выберите действие");
                 Console.WriteLine("Нажмите A - Посмотреть все заметки");
                 Console.WriteLine("Нажмите Q - Завершить работу программы");
-
-
-
-                switch (Console.ReadKey())
-                {
-                    case ConsoleKey.Q:
-                        break;
-
-                    case "a":
-                        PrintNotes(notes);
-
-                    default:
-                        break;
-                }
-
+                
+                Menu(key);
 
             }
         }
