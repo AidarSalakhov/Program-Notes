@@ -20,9 +20,9 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
-      
 
-        static void Menu(ConsoleKey key, string[] notes)
+
+        static void Menu(ConsoleKey key, string[] notes, string newNote = "")
         {
             switch (key)
             {
@@ -30,20 +30,31 @@ namespace Program_Notes
                     PrintNotes(notes);
                     break;
 
-                case ConsoleKey.Q:
+                case ConsoleKey.N:
+                    NewNote(notes, newNote);
                     break;
+
 
                 default:
                     break;
             }
         }
 
+        static string[] NewNote(string[]notes, string newNote)
+        {
+            string [] resizedNotes = new string[notes.Length + 1];
+
+            resizedNotes[notes.Length + 1] = newNote;
+
+            notes = resizedNotes;
+
+            return notes;
+        }
+
         static void PrintNotes(string[] notes)
         {
             for (int i = 0; i < notes.Length; i++)
-            {
                 Console.WriteLine(i + ". " + notes[i]);
-            }
         }
 
 
@@ -51,13 +62,22 @@ namespace Program_Notes
         {
             string[] notes = { "Пожрать", "Поспасть", "Посрать", "Посмотреть", "Поиграть", "Попинать", "Погулять", "Поугарать", "Попрактиковаться", "Поинтересоваться" };
 
-            Console.WriteLine("Выберите действие");
-            Console.WriteLine("Нажмите A - Посмотреть все заметки");
-            Console.WriteLine("Нажмите Q - Завершить работу программы");
 
-            ConsoleKey key = Console.ReadKey(true).Key;
+            while (true)
+            {
+                Console.WriteLine("\nВыберите действие");
+                Console.WriteLine("Нажмите A - Посмотреть все заметки");
+                Console.WriteLine("Нажмите N - Добавить новую заметку");
+                Console.WriteLine("Нажмите Escape - Завершить работу программы\n");
 
-            Menu(key, notes);
+                ConsoleKey key = Console.ReadKey(true).Key;
+
+                if (key == ConsoleKey.Escape)
+                    break;
+
+                Menu(key, notes);
+            }
+
         }
     }
 }
