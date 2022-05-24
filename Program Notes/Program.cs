@@ -20,20 +20,32 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
-
-        static string[] NewNote(ref string[] notes, string newNote)
+        static string[] DeleteNote(ref string[] notes, int noteIndex)
         {
-            string[] resizedNotes = new string[notes.Length + 1];
+            string[] resizedNotes = new string[notes.Length - 1];
 
-            for (int i = 0; i < notes.Length; i++)
+            for (int i = 0; i <= resizedNotes.Length; i++)
             {
-                resizedNotes[i] = notes[i];
-            }
+                if (i == noteIndex - 1)
+                {
+                    continue;
+                }
 
-            resizedNotes[notes.Length] = newNote;
+                resizedNotes[i-1] = notes[i-1];
+            }
 
             notes = resizedNotes;
 
+            return notes;
+        }
+
+
+        static string[] NewNote(ref string[] notes, string newNote)
+        {
+            Array.Resize(ref notes, notes.Length + 1);
+                        
+            notes[notes.Length - 1] = newNote;
+            
             return notes;
         }
 
@@ -55,6 +67,7 @@ namespace Program_Notes
                 Console.WriteLine("\n----Выберите действие----");
                 Console.WriteLine("[A] - Посмотреть все заметки");
                 Console.WriteLine("[N] - Добавить новую заметку");
+                Console.WriteLine("[D] - Удалить заметку");
                 Console.WriteLine("[Escape] - Завершить работу программы\n");
 
                 ConsoleKey key = Console.ReadKey(true).Key;
@@ -75,13 +88,17 @@ namespace Program_Notes
                         PrintNotes(notes);
                         break;
 
+                    case ConsoleKey.D:
+                        Console.WriteLine("Заметку с каким номером удалить?");
+                        int noteIndex = int.Parse(Console.ReadLine());
+                        DeleteNote(ref notes, noteIndex);
+                        PrintNotes(notes);
+                        break;
 
                     default:
                         break;
                 }
-
             }
-
         }
     }
 }
