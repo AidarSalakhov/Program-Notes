@@ -40,6 +40,7 @@ namespace Program_Notes
         static void PrintNotes(string[] notes)
         {
             Console.WriteLine("Ваши заметки: ");
+
             for (int i = 0; i < notes.Length; i++)
                 Console.WriteLine((i+1) + ". " + notes[i]);
         }
@@ -48,8 +49,6 @@ namespace Program_Notes
         static void Main(string[] args)
         {
             string[] notes = { "Пожрать", "Поспасть", "Посрать"};
-
-            
 
             while (true)
             {
