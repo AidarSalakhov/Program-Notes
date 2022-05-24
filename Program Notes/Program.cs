@@ -21,30 +21,16 @@ namespace Program_Notes
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
 
-
-        static void Menu(ConsoleKey key, string[] notes, string newNote = "")
+        static string[] NewNote(ref string[] notes, string newNote)
         {
-            switch (key)
+            string[] resizedNotes = new string[notes.Length + 1];
+
+            for (int i = 0; i < notes.Length; i++)
             {
-                case ConsoleKey.A:
-                    PrintNotes(notes);
-                    break;
-
-                case ConsoleKey.N:
-                    NewNote(notes, newNote);
-                    break;
-
-
-                default:
-                    break;
+                resizedNotes[i] = notes[i];
             }
-        }
 
-        static string[] NewNote(string[]notes, string newNote)
-        {
-            string [] resizedNotes = new string[notes.Length + 1];
-
-            resizedNotes[notes.Length + 1] = newNote;
+            resizedNotes[notes.Length] = newNote;
 
             notes = resizedNotes;
 
@@ -53,29 +39,48 @@ namespace Program_Notes
 
         static void PrintNotes(string[] notes)
         {
+            Console.WriteLine("Ваши заметки: ");
             for (int i = 0; i < notes.Length; i++)
-                Console.WriteLine(i + ". " + notes[i]);
+                Console.WriteLine((i+1) + ". " + notes[i]);
         }
 
 
         static void Main(string[] args)
         {
-            string[] notes = { "Пожрать", "Поспасть", "Посрать", "Посмотреть", "Поиграть", "Попинать", "Погулять", "Поугарать", "Попрактиковаться", "Поинтересоваться" };
+            string[] notes = { "Пожрать", "Поспасть", "Посрать"};
 
+            
 
             while (true)
             {
-                Console.WriteLine("\nВыберите действие");
-                Console.WriteLine("Нажмите A - Посмотреть все заметки");
-                Console.WriteLine("Нажмите N - Добавить новую заметку");
-                Console.WriteLine("Нажмите Escape - Завершить работу программы\n");
+                Console.WriteLine("\n----Выберите действие----");
+                Console.WriteLine("[A] - Посмотреть все заметки");
+                Console.WriteLine("[N] - Добавить новую заметку");
+                Console.WriteLine("[Escape] - Завершить работу программы\n");
 
                 ConsoleKey key = Console.ReadKey(true).Key;
 
                 if (key == ConsoleKey.Escape)
                     break;
 
-                Menu(key, notes);
+                switch (key)
+                {
+                    case ConsoleKey.A:
+                        PrintNotes(notes);
+                        break;
+
+                    case ConsoleKey.N:
+                        Console.WriteLine("Введите новую заметку");
+                        string newNote = Console.ReadLine();
+                        NewNote(ref notes, newNote);
+                        PrintNotes(notes);
+                        break;
+
+
+                    default:
+                        break;
+                }
+
             }
 
         }
