@@ -20,6 +20,11 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
+        static void ChangeNote(ref string[] notes, int noteIndex)
+        {
+
+        }
+
         static void DeleteAllNotes(ref string[]notes)
         {
             notes = Array.Empty<string>();
