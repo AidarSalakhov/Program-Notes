@@ -23,22 +23,17 @@ namespace Program_Notes
         static string[] DeleteNote(ref string[] notes, int noteIndex)
         {
             string[] resizedNotes = new string[notes.Length - 1];
+                        
+            for (int i = 0; i < noteIndex - 1; i++)
+                resizedNotes[i] = notes[i];
 
-            for (int i = 0; i <= resizedNotes.Length; i++)
-            {
-                if (i == noteIndex - 1)
-                {
-                    continue;
-                }
-
-                resizedNotes[i-1] = notes[i-1];
-            }
+            for (int i = noteIndex - 1; i < resizedNotes.Length; i++)
+                resizedNotes[i] = notes[i + 1];
 
             notes = resizedNotes;
 
             return notes;
         }
-
 
         static string[] NewNote(ref string[] notes, string newNote)
         {
@@ -57,10 +52,9 @@ namespace Program_Notes
                 Console.WriteLine((i+1) + ". " + notes[i]);
         }
 
-
         static void Main(string[] args)
         {
-            string[] notes = { "Пожрать", "Поспасть", "Посрать"};
+            string[] notes = { "Первая заметка", "Вторая заметка", "Третья заметка"};
 
             while (true)
             {
