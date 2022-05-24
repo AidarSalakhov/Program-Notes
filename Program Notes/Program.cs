@@ -20,6 +20,11 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
+        static void DeleteAllNotes(ref string[]notes)
+        {
+            notes = Array.Empty<string>();
+        }
+
         static string[] DeleteNote(ref string[] notes, int noteIndex)
         {
             string[] resizedNotes = new string[notes.Length - 1];
@@ -46,10 +51,17 @@ namespace Program_Notes
 
         static void PrintNotes(string[] notes)
         {
-            Console.WriteLine("Ваши заметки: ");
+            if (notes.Length == 0)
+            {
+                Console.WriteLine("У вас нет заметок");
+            }
+            else
+            {
+                Console.WriteLine("Ваши заметки:");
 
-            for (int i = 0; i < notes.Length; i++)
-                Console.WriteLine((i+1) + ". " + notes[i]);
+                for (int i = 0; i < notes.Length; i++)
+                    Console.WriteLine((i + 1) + ". " + notes[i]);
+            }
         }
 
         static void Main(string[] args)
@@ -62,6 +74,7 @@ namespace Program_Notes
                 Console.WriteLine("[A] - Посмотреть все заметки");
                 Console.WriteLine("[N] - Добавить новую заметку");
                 Console.WriteLine("[D] - Удалить заметку");
+                Console.WriteLine("[Delete] - Удалить все заметки");
                 Console.WriteLine("[Escape] - Завершить работу программы\n");
 
                 ConsoleKey key = Console.ReadKey(true).Key;
@@ -76,7 +89,7 @@ namespace Program_Notes
                         break;
 
                     case ConsoleKey.N:
-                        Console.WriteLine("Введите новую заметку");
+                        Console.WriteLine("Введите новую заметку:");
                         string newNote = Console.ReadLine();
                         NewNote(ref notes, newNote);
                         PrintNotes(notes);
@@ -86,6 +99,11 @@ namespace Program_Notes
                         Console.WriteLine("Заметку с каким номером удалить?");
                         int noteIndex = int.Parse(Console.ReadLine());
                         DeleteNote(ref notes, noteIndex);
+                        PrintNotes(notes);
+                        break;
+
+                    case ConsoleKey.Delete:
+                        DeleteAllNotes(ref notes);
                         PrintNotes(notes);
                         break;
 
