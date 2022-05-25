@@ -20,43 +20,6 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
-        static void ChangeNote(ref string[] notes, int noteIndex, string newNote)
-        {
-            if (noteIndex > notes.Length)
-            {
-                Console.WriteLine("\n[Ошибка!] Заметки с таким номером не существует\n");
-            }
-            else
-            {
-                notes[noteIndex - 1] = newNote;
-            }
-        }
-
-        static void DeleteAllNotes(ref string[]notes)
-        {
-            notes = Array.Empty<string>();
-        }
-
-        static void DeleteNote(ref string[] notes, int noteIndex)
-        {
-            string[] resizedNotes = new string[notes.Length - 1];
-                        
-            for (int i = 0; i < noteIndex - 1; i++)
-                resizedNotes[i] = notes[i];
-
-            for (int i = noteIndex - 1; i < resizedNotes.Length; i++)
-                resizedNotes[i] = notes[i + 1];
-
-            notes = resizedNotes;
-        }
-
-        static void NewNote(ref string[] notes, string newNote)
-        {
-            Array.Resize(ref notes, notes.Length + 1);
-                        
-            notes[notes.Length - 1] = newNote;
-        }
-
         static void PrintNotes(string[] notes)
         {
             if (notes.Length == 0)
@@ -68,7 +31,57 @@ namespace Program_Notes
                 Console.WriteLine("Ваши заметки:");
 
                 for (int i = 0; i < notes.Length; i++)
+                {
                     Console.WriteLine((i + 1) + ". " + notes[i]);
+                }
+            }
+        }
+
+        static void NewNote(ref string[] notes, string newNote)
+        {
+            Array.Resize(ref notes, notes.Length + 1);
+
+            notes[notes.Length - 1] = newNote;
+        }
+
+        static void DeleteNote(ref string[] notes, int noteIndex)
+        {
+            if (noteIndex > notes.Length || noteIndex == 0)
+            {
+                Console.WriteLine("\n[Ошибка!] Заметки с таким номером не существует\n");
+            }
+            else
+            {
+                string[] resizedNotes = new string[notes.Length - 1];
+
+                for (int i = 0; i < noteIndex - 1; i++)
+                {
+                    resizedNotes[i] = notes[i];
+                }
+                    
+                for (int i = noteIndex - 1; i < resizedNotes.Length; i++)
+                {
+                    resizedNotes[i] = notes[i + 1];
+                }
+
+                notes = resizedNotes;
+            }
+        }
+
+        static void DeleteAllNotes(ref string[] notes)
+        {
+            notes = Array.Empty<string>();
+        }
+
+        static void ChangeNote(ref string[] notes, int noteIndex, string newNote)
+        {
+            if (noteIndex > notes.Length || noteIndex == 0)
+            {
+                Console.WriteLine("\n[Ошибка!] Заметки с таким номером не существует\n");
+            }
+            else
+            {
+                notes[noteIndex - 1] = newNote;
             }
         }
 
@@ -82,13 +95,13 @@ namespace Program_Notes
 
             while (true)
             {
-                Console.WriteLine("\n----Выберите действие----");
-                Console.WriteLine("[A] - Посмотреть все заметки");
-                Console.WriteLine("[N] - Добавить новую заметку");
-                Console.WriteLine("[C] - Изменить существующую заметку");
-                Console.WriteLine("[D] - Удалить заметку");
-                Console.WriteLine("[Delete] - Удалить все заметки");
-                Console.WriteLine("[Escape] - Завершить работу программы\n");
+                Console.WriteLine("\n\t----Выберите действие----");
+                Console.WriteLine("\t[A] - Посмотреть все заметки");
+                Console.WriteLine("\t[N] - Добавить новую заметку");
+                Console.WriteLine("\t[C] - Изменить существующую заметку");
+                Console.WriteLine("\t[D] - Удалить заметку");
+                Console.WriteLine("\t[Delete] - Удалить все заметки");
+                Console.WriteLine("\t[Escape] - Завершить работу программы\n");
 
                 ConsoleKey key = Console.ReadKey(true).Key;
 
@@ -99,37 +112,74 @@ namespace Program_Notes
                 {
                     case ConsoleKey.A:
                         PrintNotes(notes);
+
                         break;
 
                     case ConsoleKey.N:
                         Console.WriteLine("Введите новую заметку:");
-                        newNote = Console.ReadLine();
-                        NewNote(ref notes, newNote);
-                        PrintNotes(notes);
-                        break;
 
-                    case ConsoleKey.C:
-                        Console.WriteLine("Заметку с каким номером изменить?");
-                        noteIndex = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Новый текст заметки:");
                         newNote = Console.ReadLine();
-                        ChangeNote(ref notes, noteIndex, newNote);
+
+                        NewNote(ref notes, newNote);
+
                         PrintNotes(notes);
+
                         break;
 
                     case ConsoleKey.D:
                         Console.WriteLine("Заметку с каким номером удалить?");
-                        noteIndex = int.Parse(Console.ReadLine());
+
+                        try
+                        {
+                            noteIndex = int.Parse(Console.ReadLine());
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("\n[Ошибка!] Неверный номер заметки. Введите целое число\n");
+
+                            break;
+                        }
+
                         DeleteNote(ref notes, noteIndex);
+
                         PrintNotes(notes);
+
                         break;
 
                     case ConsoleKey.Delete:
                         DeleteAllNotes(ref notes);
+
                         PrintNotes(notes);
+
+                        break;
+
+                    case ConsoleKey.C:
+                        Console.WriteLine("Заметку с каким номером изменить?");
+
+                        try
+                        {
+                            noteIndex = int.Parse(Console.ReadLine());
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("\n[Ошибка!] Неверный номер заметки. Введите целое число\n");
+
+                            break;
+                        }
+
+                        Console.WriteLine("Новый текст заметки:");
+
+                        newNote = Console.ReadLine();
+
+                        ChangeNote(ref notes, noteIndex, newNote);
+
+                        PrintNotes(notes);
+
                         break;
 
                     default:
+                        Console.WriteLine("\n[Ошибка!] Вы нажали неверную клавишу. Выберете один из вариантов:\n");
+
                         break;
                 }
             }
