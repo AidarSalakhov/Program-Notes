@@ -72,7 +72,7 @@ namespace Program_Notes
                 {
                     resizedNotes[i] = notes[i];
                 }
-                    
+
                 for (int i = noteIndex - 1; i < resizedNotes.Length; i++)
                 {
                     resizedNotes[i] = notes[i + 1];
