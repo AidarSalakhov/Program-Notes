@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace Program_Notes
 {
@@ -44,6 +46,18 @@ namespace Program_Notes
             notes[notes.Length - 1] = newNote;
         }
 
+        static void ChangeNote(ref string[] notes, int noteIndex, string newNote)
+        {
+            if (noteIndex > notes.Length || noteIndex == 0)
+            {
+                Console.WriteLine("\n[Ошибка!] Заметки с таким номером не существует\n");
+            }
+            else
+            {
+                notes[noteIndex - 1] = newNote;
+            }
+        }
+
         static void DeleteNote(ref string[] notes, int noteIndex)
         {
             if (noteIndex > notes.Length || noteIndex == 0)
@@ -68,21 +82,19 @@ namespace Program_Notes
             }
         }
 
+        static void SaveToDisc(string[] notes)
+        {
+            File.WriteAllLines("Notes.txt", notes);
+        }
+
+        static void LoadFromDisc(ref string[] notes)
+        {
+            notes = File.ReadAllLines("Notes.txt");
+        }
+
         static void DeleteAllNotes(ref string[] notes)
         {
             notes = Array.Empty<string>();
-        }
-
-        static void ChangeNote(ref string[] notes, int noteIndex, string newNote)
-        {
-            if (noteIndex > notes.Length || noteIndex == 0)
-            {
-                Console.WriteLine("\n[Ошибка!] Заметки с таким номером не существует\n");
-            }
-            else
-            {
-                notes[noteIndex - 1] = newNote;
-            }
         }
 
         static void Main(string[] args)
@@ -100,6 +112,8 @@ namespace Program_Notes
                 Console.WriteLine("\t[N] - Добавить новую заметку");
                 Console.WriteLine("\t[C] - Изменить существующую заметку");
                 Console.WriteLine("\t[D] - Удалить заметку");
+                Console.WriteLine("\t[S] - Сохранить заметки в файл Notes.txt");
+                Console.WriteLine("\t[L] - Загрузить заметки из файла Notes.txt");
                 Console.WriteLine("\t[Delete] - Удалить все заметки");
                 Console.WriteLine("\t[Escape] - Завершить работу программы\n");
 
@@ -126,6 +140,30 @@ namespace Program_Notes
 
                         break;
 
+                    case ConsoleKey.C:
+                        Console.WriteLine("Заметку с каким номером изменить?");
+
+                        try
+                        {
+                            noteIndex = int.Parse(Console.ReadLine());
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("\n[Ошибка!] Неверный номер заметки. Введите целое число\n");
+
+                            break;
+                        }
+
+                        Console.WriteLine("Новый текст заметки:");
+
+                        newNote = Console.ReadLine();
+
+                        ChangeNote(ref notes, noteIndex, newNote);
+
+                        PrintNotes(notes);
+
+                        break;
+
                     case ConsoleKey.D:
                         Console.WriteLine("Заметку с каким номером удалить?");
 
@@ -146,32 +184,26 @@ namespace Program_Notes
 
                         break;
 
-                    case ConsoleKey.Delete:
-                        DeleteAllNotes(ref notes);
+                    case ConsoleKey.S:
+                        SaveToDisc(notes);
+
+                        Console.WriteLine("Заметки сохранены в файл Notes.txt в папке программы");
 
                         PrintNotes(notes);
 
                         break;
 
-                    case ConsoleKey.C:
-                        Console.WriteLine("Заметку с каким номером изменить?");
+                    case ConsoleKey.L:
+                        LoadFromDisc(ref notes);
 
-                        try
-                        {
-                            noteIndex = int.Parse(Console.ReadLine());
-                        }
-                        catch (Exception)
-                        {
-                            Console.WriteLine("\n[Ошибка!] Неверный номер заметки. Введите целое число\n");
+                        Console.WriteLine("Заметки загружены из файла Notes.txt в папке программы");
 
-                            break;
-                        }
+                        PrintNotes(notes);
 
-                        Console.WriteLine("Новый текст заметки:");
+                        break;
 
-                        newNote = Console.ReadLine();
-
-                        ChangeNote(ref notes, noteIndex, newNote);
+                    case ConsoleKey.Delete:
+                        DeleteAllNotes(ref notes);
 
                         PrintNotes(notes);
 
