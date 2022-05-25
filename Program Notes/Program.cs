@@ -147,6 +147,8 @@ namespace Program_Notes
                     case ConsoleKey.C:
                         Console.Clear();
 
+                        PrintNotes(notes);
+
                         Console.WriteLine("Заметку с каким номером изменить?");
 
                         try
@@ -172,6 +174,8 @@ namespace Program_Notes
 
                     case ConsoleKey.D:
                         Console.Clear();
+
+                        PrintNotes(notes);
 
                         Console.WriteLine("Заметку с каким номером удалить?");
 
