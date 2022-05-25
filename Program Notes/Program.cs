@@ -125,11 +125,15 @@ namespace Program_Notes
                 switch (key)
                 {
                     case ConsoleKey.A:
+                        Console.Clear();
+
                         PrintNotes(notes);
 
                         break;
 
                     case ConsoleKey.N:
+                        Console.Clear();
+
                         Console.WriteLine("Введите новую заметку:");
 
                         newNote = Console.ReadLine();
@@ -141,6 +145,8 @@ namespace Program_Notes
                         break;
 
                     case ConsoleKey.C:
+                        Console.Clear();
+
                         Console.WriteLine("Заметку с каким номером изменить?");
 
                         try
@@ -165,6 +171,8 @@ namespace Program_Notes
                         break;
 
                     case ConsoleKey.D:
+                        Console.Clear();
+
                         Console.WriteLine("Заметку с каким номером удалить?");
 
                         try
@@ -185,6 +193,8 @@ namespace Program_Notes
                         break;
 
                     case ConsoleKey.S:
+                        Console.Clear();
+
                         SaveToDisc(notes);
 
                         Console.WriteLine("Заметки сохранены в файл Notes.txt в папке программы");
@@ -194,6 +204,8 @@ namespace Program_Notes
                         break;
 
                     case ConsoleKey.L:
+                        Console.Clear();
+
                         LoadFromDisc(ref notes);
 
                         Console.WriteLine("Заметки загружены из файла Notes.txt в папке программы");
@@ -203,6 +215,8 @@ namespace Program_Notes
                         break;
 
                     case ConsoleKey.Delete:
+                        Console.Clear();
+
                         DeleteAllNotes(ref notes);
 
                         PrintNotes(notes);
@@ -210,6 +224,8 @@ namespace Program_Notes
                         break;
 
                     default:
+                        Console.Clear();
+
                         Console.WriteLine("\n[Ошибка!] Вы нажали неверную клавишу. Выберете один из вариантов:\n");
 
                         break;
