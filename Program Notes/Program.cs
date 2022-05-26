@@ -235,7 +235,7 @@ namespace Program_Notes
 
         static void Main(string[] args)
         {
-            List<string> notes = new List<string>(5);
+            List<string> notes = new List<string>(4);
 
             Menu(ref notes);
         }
