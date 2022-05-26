@@ -132,7 +132,7 @@ namespace Program_Notes
                 case ConsoleKey.L:
                     Console.Clear();
 
-                    LoadFromDisc(notes);
+                    LoadFromDisc(ref notes);
 
                     Console.WriteLine("Заметки загружены из файла Notes.txt в папке программы");
 
@@ -223,7 +223,7 @@ namespace Program_Notes
             }
         }
 
-        static void LoadFromDisc(List<string> notes)
+        static void LoadFromDisc(ref List<string> notes)
         {
             try
             {
