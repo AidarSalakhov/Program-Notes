@@ -170,7 +170,7 @@ namespace Program_Notes
 
                 foreach (var item in notes)
                 {
-                    Console.WriteLine(item.IndexOf(item + 1) + item);
+                    Console.WriteLine((notes.IndexOf(item) + 1) + ". " + item);
                 }
             }
         }
@@ -220,7 +220,7 @@ namespace Program_Notes
         {
             try
             {
-                notes = File.ReadAllLines("test.txt").ToList();
+                notes = File.ReadAllLines("Notes.txt").ToList();
             }
             catch (Exception)
             {
