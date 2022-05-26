@@ -23,19 +23,14 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
+        static private List<string> notes = new List<string>(5);
+
         static void Main(string[] args)
         {
-            ListInitialization();
+            Menu(notes);
         }
 
-        static void ListInitialization()
-        {
-            List<string> notes = new List<string>(5);
-
-            Menu(ref notes);
-        }
-
-        static void Menu(ref List<string> notes, int noteIndex = 0, string newNote = "")
+        static void Menu(List<string> notes, int noteIndex = 0, string newNote = "")
         {
             Console.WriteLine("\n\t----Выберите действие----");
             Console.WriteLine("\t[A] - Посмотреть все заметки");
@@ -65,7 +60,7 @@ namespace Program_Notes
 
                     newNote = Console.ReadLine();
 
-                    NewNote(ref notes, newNote);
+                    NewNote(notes, newNote);
 
                     PrintNotes(notes);
 
@@ -93,7 +88,7 @@ namespace Program_Notes
 
                     newNote = Console.ReadLine();
 
-                    ChangeNote(ref notes, noteIndex, newNote);
+                    ChangeNote(notes, noteIndex, newNote);
 
                     PrintNotes(notes);
 
@@ -117,7 +112,7 @@ namespace Program_Notes
                         break;
                     }
 
-                    DeleteNote(ref notes, noteIndex);
+                    DeleteNote(notes, noteIndex);
 
                     PrintNotes(notes);
 
@@ -148,7 +143,7 @@ namespace Program_Notes
                 case ConsoleKey.Delete:
                     Console.Clear();
 
-                    DeleteAllNotes(ref notes);
+                    DeleteAllNotes(notes);
 
                     PrintNotes(notes);
 
@@ -167,7 +162,7 @@ namespace Program_Notes
                     break;
             }
 
-            Menu(ref notes);
+            Menu(notes);
         }
 
         static void PrintNotes(List<string> notes)
@@ -187,12 +182,12 @@ namespace Program_Notes
             }
         }
 
-        static void NewNote(ref List<string> notes, string newNote)
+        static void NewNote(List<string> notes, string newNote)
         {
             notes.Add(newNote);
         }
 
-        static void ChangeNote(ref List<string> notes, int noteIndex, string newNote)
+        static void ChangeNote(List<string> notes, int noteIndex, string newNote)
         {
             if (noteIndex > notes.Count || noteIndex == 0)
             {
@@ -204,7 +199,7 @@ namespace Program_Notes
             }
         }
 
-        static void DeleteNote(ref List<string> notes, int noteIndex)
+        static void DeleteNote(List<string> notes, int noteIndex)
         {
             if (noteIndex > notes.Count || noteIndex == 0)
             {
@@ -240,7 +235,7 @@ namespace Program_Notes
             }
         }
 
-        static void DeleteAllNotes(ref List<string> notes)
+        static void DeleteAllNotes(List<string> notes)
         {
             notes.Clear();
         }
