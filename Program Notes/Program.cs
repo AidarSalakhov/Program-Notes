@@ -23,6 +23,13 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
+        static void ListInitialization()
+        {
+            List<string> notes = new List<string>(5);
+
+            Menu(ref notes);
+        }
+
         static void Menu(ref List<string> notes, int noteIndex = 0, string newNote = "")
         {
             Console.WriteLine("\n\t----Выберите действие----");
@@ -235,9 +242,7 @@ namespace Program_Notes
 
         static void Main(string[] args)
         {
-            List<string> notes = new List<string>(5);
-
-            Menu(ref notes);
+            ListInitialization();
         }
     }
 }
