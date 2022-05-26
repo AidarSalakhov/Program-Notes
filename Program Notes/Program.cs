@@ -84,12 +84,27 @@ namespace Program_Notes
 
         static void SaveToDisc(string[] notes)
         {
-            File.WriteAllLines("Notes.txt", notes);
+            try
+            {
+                File.WriteAllLines("Notes.txt", notes);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\n[Ошибка!] Не удалось сохранить файл на диск\n");
+            }
         }
 
         static void LoadFromDisc(ref string[] notes)
         {
-            notes = File.ReadAllLines("Notes.txt");
+            
+            try
+            {
+                notes = File.ReadAllLines("Notes.txt");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("\n[Ошибка!] Не удалось загрузить с диска\n");
+            }
         }
 
         static void DeleteAllNotes(ref string[] notes)
