@@ -23,6 +23,11 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
+        static void Main(string[] args)
+        {
+            ListInitialization();
+        }
+
         static void ListInitialization()
         {
             List<string> notes = new List<string>(5);
@@ -238,11 +243,6 @@ namespace Program_Notes
         static void DeleteAllNotes(ref List<string> notes)
         {
             notes.Clear();
-        }
-
-        static void Main(string[] args)
-        {
-            ListInitialization();
         }
     }
 }
