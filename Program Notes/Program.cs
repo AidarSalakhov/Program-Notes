@@ -23,15 +23,10 @@ namespace Program_Notes
         //•Изменение существующей заметки
         //•(Дополнительно) сохранение заметок в файл и загрузка
 
+        static private List<string> notes = new List<string>(5);
+
         static void Main(string[] args)
         {
-            ListInitialization();
-        }
-
-        static void ListInitialization()
-        {
-            List<string> notes = new List<string>(5);
-
             Menu(ref notes);
         }
 
